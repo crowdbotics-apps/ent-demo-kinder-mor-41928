@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 
 const DashboardScreen = () => {
   const [data, setData] = useState([]);
@@ -9,7 +9,7 @@ const DashboardScreen = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('https://api.eia.gov/v2/natural-gas/prod/sum/data/?frequency=monthly&data[0]=value&sort[0][column]=period&sort[0][direction]=desc&offset=0&length=50&api_key=qt5rjkrW6cBKnbUpuDtAwAsYpdfjURuD1fIy6gD8');
+      const response = await fetch("https://api.eia.gov/v2/natural-gas/prod/sum/data/?frequency=monthly&data[0]=value&sort[0][column]=period&sort[0][direction]=desc&offset=0&length=10&api_key=qt5rjkrW6cBKnbUpuDtAwAsYpdfjURuD1fIy6gD8");
       const json = await response.json();
       setData(json.data);
     } catch (error) {
@@ -20,9 +20,6 @@ const DashboardScreen = () => {
   const renderCard = ({
     item
   }) => <View style={styles.card}>
-      <Image source={{
-      uri: 'https://tinyurl.com/42evm3m3'
-    }} style={styles.cardImage} />
       <Text style={styles.cardTitle}>{item.title}</Text>
       <Text style={styles.cardSubtitle}>{item.subtitle}</Text>
     </View>;
@@ -36,24 +33,24 @@ const DashboardScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     padding: 16
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 16
   },
   cardContainer: {
-    alignItems: 'center'
+    alignItems: "center"
   },
   card: {
-    width: '90%',
-    backgroundColor: '#fff',
+    width: "90%",
+    backgroundColor: "#fff",
     borderRadius: 8,
     padding: 16,
     marginBottom: 16,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2
@@ -63,19 +60,19 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   cardImage: {
-    width: '100%',
+    width: "100%",
     height: 200,
     marginBottom: 8,
     borderRadius: 8
   },
   cardTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 4
   },
   cardSubtitle: {
     fontSize: 14,
-    color: '#888'
+    color: "#888"
   }
 });
 export default DashboardScreen;
