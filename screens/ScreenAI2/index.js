@@ -2,31 +2,155 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 
 const DashboardScreen = () => {
+  const natGasData = [{
+    id: "01",
+    period: "2023-04",
+    duoarea: "SIN",
+    areaName: "USA-IN",
+    product: "EPG0",
+    productName: "Natural Gas",
+    process: "FGW",
+    processName: "Gross Withdrawals",
+    series: "N9010IN2",
+    seriesDescription: "Indiana Natural Gas Gross Withdrawals (MMcf)",
+    value: null,
+    units: "MMCF"
+  }, {
+    id: "02",
+    period: "2023-04",
+    duoarea: "SWY",
+    areaName: "USA-WY",
+    product: "EPG0",
+    productName: "Natural Gas",
+    process: "VGQ",
+    processName: "Repressuring",
+    series: "N9020WY2",
+    seriesDescription: "Wyoming Natural Gas Repressuring (MMcf)",
+    value: null,
+    units: "MMCF"
+  }, {
+    id: "03",
+    period: "2023-04",
+    duoarea: "SNV",
+    areaName: "USA-NV",
+    product: "EPG0",
+    productName: "Natural Gas",
+    process: "VGQ",
+    processName: "Repressuring",
+    series: "N9020NV2",
+    seriesDescription: "Nevada Natural Gas Repressuring (MMcf)",
+    value: null,
+    units: "MMCF"
+  }, {
+    id: "04",
+    period: "2023-04",
+    duoarea: "SCO",
+    areaName: "COLORADO",
+    product: "EPG0",
+    productName: "Natural Gas",
+    process: "VGV",
+    processName: "Vented and Flared",
+    series: "N9040CO2",
+    seriesDescription: "Colorado Natural Gas Vented and Flared (MMcf)",
+    value: null,
+    units: "MMCF"
+  }, {
+    id: "05",
+    period: "2023-04",
+    duoarea: "SKY",
+    areaName: "USA-KY",
+    product: "EPG0",
+    productName: "Natural Gas",
+    process: "VGQ",
+    processName: "Repressuring",
+    series: "N9020KY2",
+    seriesDescription: "Kentucky Natural Gas Repressuring (MMcf)",
+    value: null,
+    units: "MMCF"
+  }, {
+    id: "06",
+    period: "2023-04",
+    duoarea: "SSD",
+    areaName: "USA-SD",
+    product: "EPG0",
+    productName: "Natural Gas",
+    process: "FGW",
+    processName: "Gross Withdrawals",
+    series: "N9010SD2",
+    seriesDescription: "South Dakota Natural Gas Gross Withdrawals (MMcf)",
+    value: null,
+    units: "MMCF"
+  }, {
+    id: "07",
+    period: "2023-04",
+    duoarea: "SKY",
+    areaName: "USA-KY",
+    product: "EPG0",
+    productName: "Natural Gas",
+    process: "FGW",
+    processName: "Gross Withdrawals",
+    series: "N9010KY2",
+    seriesDescription: "Kentucky Natural Gas Gross Withdrawals (MMcf)",
+    value: null,
+    units: "MMCF"
+  }, {
+    id: "08",
+    period: "2023-04",
+    duoarea: "NUS",
+    areaName: "U.S.",
+    product: "EPG0",
+    productName: "Natural Gas",
+    process: "VRN",
+    processName: "Removed from Natural Gas",
+    series: "N9030US2",
+    seriesDescription: "U.S. Nonhydrocarbon Gases Removed from Natural Gas (MMcf)",
+    value: null,
+    units: "MMCF"
+  }, {
+    id: "09",
+    period: "2023-04",
+    duoarea: "SKS",
+    areaName: "USA-KS",
+    product: "EPG0",
+    productName: "Natural Gas",
+    process: "FGO",
+    processName: "Withdrawals from Oil Wells",
+    series: "N9012KS2",
+    seriesDescription: "Kansas Natural Gas Gross Withdrawals from Oil Wells (MMcf)",
+    value: null,
+    units: "MMCF"
+  }, {
+    id: "10",
+    period: "2023-04",
+    duoarea: "SAR",
+    areaName: "USA-AR",
+    product: "EPG0",
+    productName: "Natural Gas",
+    process: "FGG",
+    processName: "Withdrawals from Gas Wells",
+    series: "N9011AR2",
+    seriesDescription: "Arkansas Natural Gas Withdrawals from Gas Wells (MMcf)",
+    value: null,
+    units: "MMCF"
+  }];
   const [data, setData] = useState([]);
   useEffect(() => {
-    fetchData();
+    setData(natGasData);
   }, []);
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch("https://api.eia.gov/v2/natural-gas/prod/sum/data/?frequency=monthly&data[0]=value&sort[0][column]=period&sort[0][direction]=desc&offset=0&length=10&api_key=qt5rjkrW6cBKnbUpuDtAwAsYpdfjURuD1fIy6gD8");
-      const json = await response.json();
-      setData(json.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const renderCard = ({
     item
   }) => <View style={styles.card}>
-      <Text style={styles.cardTitle}>{item.title}</Text>
-      <Text style={styles.cardSubtitle}>{item.subtitle}</Text>
+      <Text style={styles.cardTitle}>{item.seriesDescription}</Text>
+      <Text style={styles.cardSubtitle}>Process: {item.process}</Text>
+      <Text style={styles.cardSubtitle}>Period: {item.period}</Text>
     </View>;
 
   return <View style={styles.container}>
-      <Text style={styles.title}>Natural Gas Production Dashboard</Text>
-      <FlatList data={data} renderItem={renderCard} keyExtractor={item => item.id.toString()} contentContainerStyle={styles.cardContainer} />
+      <View style={styles.column}>
+        <Text style={styles.title}>Natural Gas Production Dashboard</Text>
+        <FlatList data={data} renderItem={renderCard} keyExtractor={item => item.id} contentContainerStyle={styles.cardContainer} />
+      </View>
     </View>;
 };
 
@@ -42,6 +166,7 @@ const styles = StyleSheet.create({
     marginBottom: 16
   },
   cardContainer: {
+    width: "100%",
     alignItems: "center"
   },
   card: {
@@ -60,7 +185,6 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   cardImage: {
-    width: "100%",
     height: 200,
     marginBottom: 8,
     borderRadius: 8
