@@ -148,7 +148,7 @@ const DashboardScreen = () => {
 
   return <View style={styles.container}>
       <View style={styles.column}>
-        <Text style={styles.title}>Natural Gas Production Dashboard</Text>
+        <Text style={styles.title}>{"Natural Gas Production"}</Text>
         <FlatList data={data} renderItem={renderCard} keyExtractor={item => item.id} contentContainerStyle={styles.cardContainer} />
       </View>
     </View>;
@@ -183,11 +183,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5
-  },
-  cardImage: {
-    height: 200,
-    marginBottom: 8,
-    borderRadius: 8
   },
   cardTitle: {
     fontSize: 18,
